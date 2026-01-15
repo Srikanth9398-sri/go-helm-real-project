@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/<YOUR-USERNAME>/go-helm-real-project.git'
+                    url: 'https://github.com/Srikanth9398-sri/go-helm-real-project.git'
             }
         }
 
