@@ -33,9 +33,20 @@ pipeline {
                     --set image.repository=$IMAGE_NAME \
                     --set image.tag=${BUILD_NUMBER}
                 '''
+                
             }
         }
     }
+    stage('K8s Debug') {
+    steps {
+        sh '''
+        whoami
+        kubectl version
+        kubectl get nodes
+        '''
+    }
+}
+
 
     post {
         success {
