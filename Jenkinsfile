@@ -37,16 +37,6 @@ pipeline {
             }
         }
     }
-    stage('K8s Debug') {
-    steps {
-        sh '''
-        whoami
-        kubectl version
-        kubectl get nodes
-        '''
-    }
-}
-
 
     post {
         success {
