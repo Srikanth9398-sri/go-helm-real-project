@@ -7,7 +7,7 @@ spec:
   selector:
     app: {{ .Release.Name }}
   ports:
-    - port: {{ .Values.service.port }}     # external service port
-      targetPort: 8080                     # container port your app listens on
+    - port: {{ .Values.service.port }}     
+      targetPort: 8080                     
       nodePort: {{ .Values.service.nodePort | default "" }}
 
