@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "go-app"
+        IMAGE_NAME = "srikanth9398/go-app"
+        DOCKER_CREDS = "dockerhub-creds"
     }
 
     stages {
@@ -26,6 +27,21 @@ pipeline {
             }
         }
 
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: DOCKER_CREDS,
+                    usernameVariable: 'DH_USER',
+                    passwordVariable: 'DH_PASS'
+                )]) {
+                    sh '''
+                      echo $DH_PASS | docker login -u $DH_USER --password-stdin
+                      docker push $IMAGE_NAME:${BUILD_NUMBER}
+                    '''
+                }
+            }
+        }
+
         stage('Helm Deploy') {
             steps {
                 sh '''
@@ -33,17 +49,16 @@ pipeline {
                     --set image.repository=$IMAGE_NAME \
                     --set image.tag=${BUILD_NUMBER}
                 '''
-                
             }
         }
     }
 
     post {
         success {
-            echo "✅ Deployment successful"
+            echo "✅ Image pushed to Docker Hub and deployed"
         }
         failure {
-            echo "❌ Deployment failed"
+            echo "❌ Pipeline failed"
         }
     }
 }
