@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "srikanth9398/go-app"
+        IMAGE_NAME = "srikanth7036/go-app"
         DOCKER_CREDS = "dockerhub-creds"
     }
 
