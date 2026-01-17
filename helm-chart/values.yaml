@@ -9,3 +9,9 @@ service:
   port: 80          
   nodePort: 32362   
 
+ingress:
+  enabled: true
+  className: nginx
+  host: go-app.local
+  path: /
+
