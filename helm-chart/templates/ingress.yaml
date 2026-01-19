@@ -1,4 +1,3 @@
-{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -6,7 +5,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: go-app.local
       http:
         paths:
           - path: /
@@ -16,4 +15,4 @@ spec:
                 name: {{ include "go-helm-app.fullname" . }}
                 port:
                   number: 80
-{{- end }}
+
