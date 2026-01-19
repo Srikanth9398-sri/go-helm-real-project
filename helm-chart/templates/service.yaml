@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "go-helm-app.fullname" . }}
 spec:
-  type: {{ .Values.service.type }}
   selector:
-    app: {{ .Release.Name }}
+    app: go-app
   ports:
-    - port: {{ .Values.service.port }}     
-      targetPort: 8080                     
-      nodePort: {{ .Values.service.nodePort | default "" }}
-
+    - protocol: TCP
+      port: 80       
+      targetPort: 8080  
+  type: ClusterIP      
